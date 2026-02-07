@@ -1,5 +1,5 @@
-import { Lock, Zap } from "lucide-react";
-import { Link } from "react-router-dom";
+// src/components/shared/PremiumGate.tsx
+import { Zap } from "lucide-react";
 
 interface PremiumGateProps {
   title: string;
@@ -9,26 +9,18 @@ interface PremiumGateProps {
 
 export default function PremiumGate({ title, description, children }: PremiumGateProps) {
   return (
-    <div className="relative">
-      {children && (
-        <div className="pointer-events-none select-none opacity-20 blur-[2px]">
-          {children}
+    <div className="p-8 bg-card border rounded-lg shadow-sm">
+      <div className="flex items-center justify-center mb-4">
+        <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 mb-3">
+          <Zap className="h-6 w-6 text-primary" />
         </div>
-      )}
-      <div className={`${children ? "absolute inset-0" : ""} flex flex-col items-center justify-center py-16`}>
-        <div className="flex items-center justify-center h-14 w-14 rounded-full bg-secondary mb-4">
-          <Lock className="h-6 w-6 text-muted-foreground" />
-        </div>
-        <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-6 text-center max-w-sm">{description}</p>
-        <Link
-          to="/upgrade"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-        >
-          <Zap className="h-4 w-4" />
-          Upgrade to Pro
-        </Link>
       </div>
+      <h3 className="text-lg font-semibold text-center mb-2">{title}</h3>
+      <p className="text-sm text-muted-foreground text-center mb-6">{description}</p>
+      <div className="text-xs text-center text-muted-foreground">
+        ✅ Free & Open Source - No limits!
+      </div>
+      {children}
     </div>
   );
 }

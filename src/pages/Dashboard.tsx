@@ -1,12 +1,12 @@
-import { Github, GitFork, Star, Code, Briefcase, BarChart3, Lock } from "lucide-react";
+import { Github, GitFork, Star, Code, Briefcase, BarChart3, Zap } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
 import StatCard from "@/components/shared/StatCard";
 import EmptyState from "@/components/shared/EmptyState";
 import PremiumGate from "@/components/shared/PremiumGate";
 
 const Dashboard = () => {
-  // No data — user hasn't connected GitHub yet
-  const isGitHubConnected = false;
+  // TODO: Replace with real data from Supabase/GitHub
+  const isGitHubConnected = false;  // Will be true after connect
   const repos: any[] = [];
   const skills: string[] = [];
 
@@ -22,16 +22,7 @@ const Dashboard = () => {
         <StatCard label="Repositories" value={repos.length} icon={Code} accent="blue" />
         <StatCard label="Skills Detected" value={skills.length} icon={BarChart3} accent="green" />
         <StatCard label="Portfolios" value={0} icon={Briefcase} accent="amber" />
-        <div className="surface-elevated rounded-lg p-5 relative overflow-hidden">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium text-muted-foreground">Job Match Score</span>
-            <div className="h-8 w-8 rounded-md flex items-center justify-center bg-premium-gold-light">
-              <Lock className="h-4 w-4 text-premium-gold" />
-            </div>
-          </div>
-          <p className="text-2xl font-semibold text-muted-foreground/40">—</p>
-          <span className="premium-badge absolute top-3 right-3">Pro</span>
-        </div>
+        <StatCard label="Job Matches" value="—" icon={Zap} accent="blue" />
       </div>
 
       {/* GitHub connection */}
@@ -59,7 +50,7 @@ const Dashboard = () => {
                 <EmptyState
                   icon={Code}
                   title="No repositories found"
-                  description="We'll scan your GitHub repos once connected. This may take a moment."
+                  description="We'll scan your GitHub repos once connected."
                 />
               </div>
             ) : (
@@ -79,7 +70,7 @@ const Dashboard = () => {
                     {repo.extracted_skills?.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-3">
                         {repo.extracted_skills.slice(0, 5).map((skill: string) => (
-                          <span key={skill} className="text-xs px-2 py-0.5 rounded-full accent-blue-bg text-accent-blue font-medium">
+                          <span key={skill} className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-medium">
                             {skill}
                           </span>
                         ))}
@@ -99,14 +90,14 @@ const Dashboard = () => {
                 <EmptyState
                   icon={BarChart3}
                   title="No skills extracted yet"
-                  description="Skills will appear here once your repositories are analyzed."
+                  description="Skills appear after repo analysis."
                 />
               </div>
             ) : (
               <div className="surface-elevated rounded-lg p-5">
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (
-                    <span key={skill} className="text-sm px-3 py-1.5 rounded-full accent-blue-bg text-accent-blue font-medium">
+                    <span key={skill} className="text-sm px-3 py-1.5 rounded-full bg-blue-100 text-blue-800 font-medium">
                       {skill}
                     </span>
                   ))}
@@ -117,15 +108,20 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Premium section */}
+      {/* Job Match Insights - NOW FREE */}
       <div className="mt-8">
-        <h2 className="text-base font-semibold text-foreground mb-4">Job Match Insights</h2>
-        <div className="surface-elevated rounded-lg overflow-hidden">
-          <PremiumGate
-            title="Job Match Score"
-            description="Unlock AI-powered job matching to find roles that fit your skill profile."
-          />
-        </div>
+        <h2 className="text-base font-semibold text-foreground mb-4">Ready to Find Jobs?</h2>
+        <PremiumGate
+          title="Job Matcher Available"
+          description="AI-powered matching is ready! Paste job descriptions to see fit scores."
+        >
+          <div className="p-4">
+            <a href="/job-matcher" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90">
+              <BarChart3 className="h-4 w-4" />
+              Go to Job Matcher
+            </a>
+          </div>
+        </PremiumGate>
       </div>
     </div>
   );

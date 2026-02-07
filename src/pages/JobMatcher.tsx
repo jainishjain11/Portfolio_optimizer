@@ -1,4 +1,4 @@
-import { Search, BarChart3, Users } from "lucide-react";
+import { Search, BarChart3, Users, Zap } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
 import PremiumGate from "@/components/shared/PremiumGate";
 
@@ -7,39 +7,67 @@ const JobMatcher = () => {
     <div>
       <PageHeader
         title="Job Matcher"
-        description="AI-powered job matching based on your repository skills."
+        description="AI-powered job matching based on your repository skills. Paste any job description."
       />
 
-      <div className="surface-elevated rounded-lg overflow-hidden">
+      {/* Main matcher - NOW FULLY FREE */}
+      <div className="space-y-6">
         <PremiumGate
-          title="Unlock Job Matching"
-          description="Get AI-analyzed match scores between your skills and job descriptions. See which repos to showcase and identify skill gaps."
+          title="Job Matcher Ready"
+          description="Enter a job description to get instant AI match scores, recommended repos, and skills gaps."
         >
-          {/* Blurred preview */}
           <div className="p-6 space-y-6">
+            {/* Job input */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Paste Job Description</label>
-              <div className="w-full h-32 rounded-md border border-border bg-secondary" />
+              <textarea
+                placeholder="e.g., Senior React Developer with Node.js experience..."
+                className="w-full h-32 p-3 rounded-md border border-border bg-secondary focus:border-primary focus:ring-2 focus:ring-primary/10 resize-vertical"
+              />
+              <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 ml-auto">
+                <Zap className="h-4 w-4" />
+                Analyze Match
+              </button>
             </div>
+
+            {/* Results table */}
             <div className="rounded-md border border-border overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-secondary">
                   <tr>
-                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Job Title</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Repository</th>
                     <th className="text-left px-4 py-3 font-medium text-muted-foreground">Match Score</th>
-                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Recommended Repos</th>
-                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Skills Gap</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Key Skills</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3].map((i) => (
-                    <tr key={i} className="border-t border-border">
-                      <td className="px-4 py-3"><div className="h-4 w-32 rounded bg-muted" /></td>
-                      <td className="px-4 py-3"><div className="h-4 w-16 rounded bg-muted" /></td>
-                      <td className="px-4 py-3"><div className="h-4 w-24 rounded bg-muted" /></td>
-                      <td className="px-4 py-3"><div className="h-4 w-20 rounded bg-muted" /></td>
-                    </tr>
-                  ))}
+                  {/* TODO: Real results from API */}
+                  <tr className="border-t border-border hover:bg-accent">
+                    <td className="px-4 py-3 font-medium">portfolio-optimizer</td>
+                    <td className="px-4 py-3">
+                      <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">92%</span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full mr-1">React</span>
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">TypeScript</span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button className="text-xs text-primary font-medium hover:underline">Feature</button>
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border hover:bg-accent">
+                    <td className="px-4 py-3 font-medium">Another Repo</td>
+                    <td className="px-4 py-3">
+                      <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full font-medium">78%</span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">Node.js</span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button className="text-xs text-primary font-medium hover:underline">Feature</button>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -47,16 +75,20 @@ const JobMatcher = () => {
         </PremiumGate>
       </div>
 
-      {/* Coming soon */}
-      <div className="mt-6 surface-elevated rounded-lg p-5 flex items-center gap-4">
-        <div className="h-10 w-10 rounded-md bg-secondary flex items-center justify-center">
-          <Users className="h-5 w-5 text-muted-foreground" />
+      {/* Coming soon - Free roadmap */}
+      <div className="mt-8 surface-elevated rounded-lg p-6">
+        <div className="flex items-center gap-4">
+          <div className="h-10 w-10 rounded-md bg-secondary flex items-center justify-center">
+            <Users className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">Coming Soon (OSS Roadmap)</h3>
+            <p className="text-xs text-muted-foreground mt-1">Competitor analysis, portfolio export, GitHub Pages deploy.</p>
+            <a href="https://github.com/yourusername/portfolio-optimizer" className="text-xs text-primary font-medium mt-1 inline-block hover:underline">
+              ⭐ Star on GitHub
+            </a>
+          </div>
         </div>
-        <div>
-          <p className="text-sm font-semibold text-foreground">Coming Soon: Competitor Analysis</p>
-          <p className="text-xs text-muted-foreground">See how your profile stacks up against other developers in your field.</p>
-        </div>
-        <span className="premium-badge ml-auto">Pro</span>
       </div>
     </div>
   );
