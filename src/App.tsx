@@ -25,8 +25,6 @@ const App = () => (
             <Route path="/portfolios" element={<Portfolios />} />
             <Route path="/job-matcher" element={<JobMatcher />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/upgrade" element={<Upgrade />} />
-            <Route path="*" element={<NotFound />} />
           </Routes>
         </AppLayout>
       </BrowserRouter>
