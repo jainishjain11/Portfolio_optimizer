@@ -6,9 +6,19 @@ import PremiumGate from "@/components/shared/PremiumGate";
 
 const Dashboard = () => {
   // TODO: Replace with real data from Supabase/GitHub
-  const isGitHubConnected = false;  // Will be true after connect
+  const isGitHubConnected = false; // Will be true after connect
   const repos: any[] = [];
   const skills: string[] = [];
+
+  const handleGitHubConnect = () => {
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
+    const redirectUri = "http://localhost:8080/auth/callback";
+    const scope = "repo read:user";
+    const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}&scope=${encodeURIComponent(scope)}`;
+    window.location.href = githubUrl;
+  };
 
   return (
     <div>
@@ -33,7 +43,10 @@ const Dashboard = () => {
             title="Connect your GitHub account"
             description="Link your GitHub to scan repositories, extract skills, and auto-generate your developer portfolio."
             action={
-              <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity">
+              <button
+                onClick={handleGitHubConnect}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
                 <Github className="h-4 w-4" />
                 Connect GitHub
               </button>
@@ -64,13 +77,22 @@ const Dashboard = () => {
                       </span>
                     </div>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Star className="h-3 w-3" />{repo.stars}</span>
-                      <span className="flex items-center gap-1"><GitFork className="h-3 w-3" />{repo.forks}</span>
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3 w-3" />
+                        {repo.stars}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <GitFork className="h-3 w-3" />
+                        {repo.forks}
+                      </span>
                     </div>
                     {repo.extracted_skills?.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-3">
                         {repo.extracted_skills.slice(0, 5).map((skill: string) => (
-                          <span key={skill} className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-medium">
+                          <span
+                            key={skill}
+                            className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-medium"
+                          >
                             {skill}
                           </span>
                         ))}
@@ -97,7 +119,10 @@ const Dashboard = () => {
               <div className="surface-elevated rounded-lg p-5">
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (
-                    <span key={skill} className="text-sm px-3 py-1.5 rounded-full bg-blue-100 text-blue-800 font-medium">
+                    <span
+                      key={skill}
+                      className="text-sm px-3 py-1.5 rounded-full bg-blue-100 text-blue-800 font-medium"
+                    >
                       {skill}
                     </span>
                   ))}
@@ -116,7 +141,10 @@ const Dashboard = () => {
           description="AI-powered matching is ready! Paste job descriptions to see fit scores."
         >
           <div className="p-4">
-            <a href="/job-matcher" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90">
+            <a
+              href="/job-matcher"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90"
+            >
               <BarChart3 className="h-4 w-4" />
               Go to Job Matcher
             </a>

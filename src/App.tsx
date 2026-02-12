@@ -10,6 +10,8 @@ import JobMatcher from "./pages/JobMatcher";
 import Settings from "./pages/Settings";
 import Upgrade from "./pages/Upgrade";
 import NotFound from "./pages/NotFound";
+import AuthCallback from "./pages/AuthCallback";
+
 
 const queryClient = new QueryClient();
 
@@ -21,11 +23,13 @@ const App = () => (
       <BrowserRouter>
         <AppLayout>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/portfolios" element={<Portfolios />} />
-            <Route path="/job-matcher" element={<JobMatcher />} />
-            <Route path="/settings" element={<Settings />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
+          <Route path="/portfolios" element={<Portfolios />} />
+          <Route path="/job-matcher" element={<JobMatcher />} />
+          <Route path="/settings" element={<Settings />} />
           </Routes>
+
         </AppLayout>
       </BrowserRouter>
     </TooltipProvider>
